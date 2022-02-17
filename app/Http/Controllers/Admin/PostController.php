@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
 use Illuminate\Support\Str;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 class PostController extends Controller
 {

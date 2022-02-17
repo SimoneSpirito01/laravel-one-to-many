@@ -23,6 +23,7 @@ Auth::routes();
 // Backoffice
 Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function() {
     Route::resource('posts', 'PostController');
+    Route::resource('categories', 'CategoryController');
     Route::get('/home', 'HomeController@index')->name('home');
 });
 
