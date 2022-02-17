@@ -5,9 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+
+    protected $validation = [
+        'name' => 'required|unique:categories|max:100'
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +43,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'name' => 'required|unique:categories|max:100'
+        ]);
+
+        $newCategory = new Category();
+        $newCategory->name = $data['name'];
+        $newCategory->slug = Str::of($newCategory->name)->slug('-');
+        $newCategory->save();
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -69,9 +86,19 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->all();
+
+        $request->validate([
+            'name' => "required|unique:categories,name,{$category->id}|max:100"
+        ]);
+
+        $category->name = $data['name'];
+        $category->slug = Str::of($category->name)->slug('-');
+        $category->save();
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -80,8 +107,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->route('categories.index');
     }
 }

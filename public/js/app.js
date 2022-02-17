@@ -37295,6 +37295,48 @@ if (buttonDelete != null) {
   });
 }
 
+var editToggle = document.getElementsByClassName('toggleForm');
+var submitForm = document.getElementsByClassName('submitForm');
+var categoryName = document.getElementsByClassName('name');
+var categoryNameEdit = document.getElementsByClassName('name-input');
+var editForm = document.getElementsByClassName('edit-form');
+
+if (editToggle != null && submitForm != null) {
+  var _loop = function _loop(_i) {
+    editToggle[_i].addEventListener('click', function () {
+      this.classList.add('d-none');
+
+      submitForm[_i].classList.remove('d-none');
+
+      categoryName[_i].classList.add('d-none');
+
+      categoryNameEdit[_i].classList.remove('d-none');
+    });
+  };
+
+  for (var _i = 0; _i < editToggle.length; _i++) {
+    _loop(_i);
+  }
+
+  var _loop2 = function _loop2(_i2) {
+    submitForm[_i2].addEventListener('click', function () {
+      editForm[_i2].submit();
+
+      this.classList.add('d-none');
+
+      editToggle[_i2].classList.remove('d-none');
+
+      categoryName[_i2].classList.remove('d-none');
+
+      categoryNameEdit[_i2].classList.add('d-none');
+    });
+  };
+
+  for (var _i2 = 0; _i2 < submitForm.length; _i2++) {
+    _loop2(_i2);
+  }
+}
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -37360,8 +37402,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/simonespirito/Documents/Boolean/laravel-one-to-many/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/simonespirito/Documents/Boolean/laravel-one-to-many/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/simonespirito/Downloads/Boolean/laravel-one-to-many/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/simonespirito/Downloads/Boolean/laravel-one-to-many/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

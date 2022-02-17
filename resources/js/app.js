@@ -26,3 +26,29 @@ if(buttonDelete != null) {
     })
 }
 
+const editToggle = document.getElementsByClassName('toggleForm');
+const submitForm = document.getElementsByClassName('submitForm');
+const categoryName = document.getElementsByClassName('name');
+const categoryNameEdit = document.getElementsByClassName('name-input');
+const editForm = document.getElementsByClassName('edit-form');
+
+if(editToggle != null && submitForm != null) {
+    for(let i = 0; i < editToggle.length; i++) {
+        editToggle[i].addEventListener('click', function(){
+            this.classList.add('d-none');
+            submitForm[i].classList.remove('d-none');
+            categoryName[i].classList.add('d-none');
+            categoryNameEdit[i].classList.remove('d-none');
+        })
+    }
+    for(let i = 0; i < submitForm.length; i++) {
+        submitForm[i].addEventListener('click', function(){
+            editForm[i].submit();
+            this.classList.add('d-none');
+            editToggle[i].classList.remove('d-none');
+            categoryName[i].classList.remove('d-none');
+            categoryNameEdit[i].classList.add('d-none');
+        })
+    }
+}
+

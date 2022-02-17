@@ -9,7 +9,17 @@
                 <div class="card-header">Lista dei post</div>
                 <div class="card-body">
                   <div class="new-post">
-                    <button type="button" class="btn btn-success mb-3"><a class="text-white" href="{{route('posts.create')}}">New post</a></button>
+                    <form class="d-flex mb-3" action="{{route('categories.store')}}" method="POST">
+                        <button type="submit" class="btn btn-success mr-2 btnP">New category</button>
+                        <div>
+                            @csrf
+                            <input value="{{old('name')}}" type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Insert the category name" name="name">
+                        </div>
+                        @error('name')
+                                <div class="alert alert-danger ml-2 mb-0 py-0 px-4 d-flex align-items-center">{{ $message }}</div>
+                        @enderror
+                        
+                    </form>
                   </div>
                     <div class="posts">
                         <table class="table table-striped">
@@ -26,12 +36,28 @@
 
                                 <tr>
                                     <th scope="row">{{$category->id}}</th>
-                                    <td>{{$category->name}}</td>
+                                    <td>
+                                        <div class="name">{{$category->name}}</div>
+                                        <div class="name-input d-none">
+                                            <form class="d-inline-block edit-form" action="{{route('categories.update', $category)}}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <input value="{{old('name') ?? $category->name}}" type="text" class="form-control" id="name" placeholder="Insert the name" name="name">
+                                            </form>
+                                        </div>
+                                    </td>
                                     <td>{{$category->slug}}</td>
                                     <td>
-                                      <button type="button" class="btn btn-info"><a class="text-white" href="{{route('categories.show', $category->id)}}">View</a></button>
-                                      {{-- <button type="button" class="btn btn-warning"><a class="text-white" href="{{route('categorys.edit', $category->slug)}}">Edit</a></button>
-                                      <button type="button" class="btn btn-danger mt-1 btnToggle btnP" data-toggle="modal" data-target="#exampleModal" data-slug="{{$category->slug}}">Delete</button> --}}
+                                        <button type="button" class="btn btn-info"><a class="text-white" href="{{route('categories.show', $category->id)}}">View</a></button>
+                                        <div class="edit-buttons d-inline-block">
+                                            <button type="button" class="btn btn-warning btnP text-white toggleForm">Edit</button>
+                                            <button type="button" class="btn btn-warning btnP text-white d-none submitForm">Confirm</button>
+                                        </div>
+                                        <form class="d-inline-block" action="{{route('categories.destroy', $category->id)}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger toastClicker btnP">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                               @endforeach
@@ -60,7 +86,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </div> --}}
                           <!-- Toast -->
                           <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 9999; right: 0; top: 60px;">
                             <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
@@ -68,7 +94,7 @@
                                 Post successfully deleted! 🗑
                               </div>
                             </div>
-                          </div> --}}
+                          </div> 
                     </div>
                 </div>
             </div>
