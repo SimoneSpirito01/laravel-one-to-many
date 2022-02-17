@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Category;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -110,6 +111,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect()->route('categories.index');
+
+        if(URL::previous() == 'http://127.0.0.1:8000/admin/posts/'.$category->id) {
+            return redirect()->route('categories.index');
+        } 
     }
 }

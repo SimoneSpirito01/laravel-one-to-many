@@ -37276,22 +37276,50 @@ $(document).ready(function () {
   });
 });
 var buttonsToggle = document.getElementsByClassName('btnToggle');
-var form = document.querySelector('.my_form');
 var buttonDelete = document.querySelector('.my_button');
+var buttonDeleteCategory = document.querySelector('.delete-category');
+var posts = document.getElementsByClassName('my_item');
 var postSlug;
+var counter;
 
 if (buttonsToggle != null) {
-  for (var i = 0; i < buttonsToggle.length; i++) {
+  var _loop = function _loop(i) {
     buttonsToggle[i].addEventListener('click', function () {
       postSlug = this.getAttribute('data-slug');
+      counter = i;
     });
+  };
+
+  for (var i = 0; i < buttonsToggle.length; i++) {
+    _loop(i);
   }
 }
 
 if (buttonDelete != null) {
   buttonDelete.addEventListener('click', function () {
-    form.setAttribute('action', 'posts/' + postSlug);
-    form.submit();
+    console.log(postSlug);
+    axios({
+      method: 'delete',
+      url: "posts/".concat(postSlug)
+    }).then(function (response) {
+      posts[counter].classList.add('d-none');
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  });
+}
+
+if (buttonDeleteCategory != null) {
+  buttonDeleteCategory.addEventListener('click', function () {
+    console.log(postSlug);
+    axios({
+      method: 'delete',
+      url: "categories/".concat(postSlug)
+    }).then(function (response) {
+      posts[counter].classList.add('d-none');
+    })["catch"](function (error) {
+      console.log(error);
+    });
   });
 }
 
@@ -37302,7 +37330,7 @@ var categoryNameEdit = document.getElementsByClassName('name-input');
 var editForm = document.getElementsByClassName('edit-form');
 
 if (editToggle != null && submitForm != null) {
-  var _loop = function _loop(_i) {
+  var _loop2 = function _loop2(_i) {
     editToggle[_i].addEventListener('click', function () {
       this.classList.add('d-none');
 
@@ -37315,10 +37343,10 @@ if (editToggle != null && submitForm != null) {
   };
 
   for (var _i = 0; _i < editToggle.length; _i++) {
-    _loop(_i);
+    _loop2(_i);
   }
 
-  var _loop2 = function _loop2(_i2) {
+  var _loop3 = function _loop3(_i2) {
     submitForm[_i2].addEventListener('click', function () {
       editForm[_i2].submit();
 
@@ -37333,7 +37361,7 @@ if (editToggle != null && submitForm != null) {
   };
 
   for (var _i2 = 0; _i2 < submitForm.length; _i2++) {
-    _loop2(_i2);
+    _loop3(_i2);
   }
 }
 

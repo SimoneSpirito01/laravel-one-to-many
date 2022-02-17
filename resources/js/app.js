@@ -7,22 +7,47 @@ $(document).ready(function(){
   });
 
 const buttonsToggle = document.getElementsByClassName('btnToggle');
-const form = document.querySelector('.my_form');
 const buttonDelete = document.querySelector('.my_button');
+const buttonDeleteCategory = document.querySelector('.delete-category');
+const posts = document.getElementsByClassName('my_item');
 let postSlug;
+let counter;
 
 if(buttonsToggle != null) {
     for(let i = 0; i < buttonsToggle.length; i++) {
         buttonsToggle[i].addEventListener('click', function() {
             postSlug = this.getAttribute('data-slug');
+            counter = i;
         })
     }
 }
 
 if(buttonDelete != null) {
     buttonDelete.addEventListener('click', function() {
-        form.setAttribute('action', 'posts/'+postSlug);
-        form.submit();
+        console.log(postSlug)
+        axios({
+            method: 'delete',
+            url: `posts/${postSlug}`
+          }).then(function (response) {
+                posts[counter].classList.add('d-none');
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
+    })
+}
+if(buttonDeleteCategory != null) {
+    buttonDeleteCategory.addEventListener('click', function() {
+        console.log(postSlug)
+        axios({
+            method: 'delete',
+            url: `categories/${postSlug}`
+          }).then(function (response) {
+                posts[counter].classList.add('d-none');
+            })
+            .catch(function (error) {
+              console.log(error);
+            })
     })
 }
 

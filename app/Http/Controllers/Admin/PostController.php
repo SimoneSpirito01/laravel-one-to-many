@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
-
 class PostController extends Controller
 {
 
@@ -147,6 +147,8 @@ class PostController extends Controller
         $post = Post::where('slug', $id)->first();
         $post->delete();
 
-        return redirect()->route('posts.index');
+        if(URL::previous() == 'http://127.0.0.1:8000/admin/posts/'.$id) {
+            return redirect()->route('posts.index');
+        } 
     }
 }

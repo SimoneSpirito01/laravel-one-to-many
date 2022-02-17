@@ -24,10 +24,10 @@
                               </tr>
                             </thead>
                             <tbody>
-                              @foreach ($posts as $post)
+                              @foreach ($posts as $key => $post)
 
-                                <tr>
-                                    <th scope="row">{{$post->id}}</th>
+                                <tr class="my_item">
+                                    <th scope="row">{{$key+1}}</th>
                                     <td>{{$post->title}}</td>
                                     <td>{{$post->slug}}</td>
                                     <td>{{($post->published == 0) ? 'No' : 'Yes'}}</td>
@@ -63,7 +63,7 @@
                                   <form action="{{route('posts.destroy', $post->slug)}}" method="POST" class="my_form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" class="btn btn-danger toastClicker my_button btnP">Delete</button>
+                                    <button type="button" class="btn btn-danger toastClicker my_button btnP" data-dismiss="modal">Confirm</button>
                                   </form>
                                 </div>
                               </div>
