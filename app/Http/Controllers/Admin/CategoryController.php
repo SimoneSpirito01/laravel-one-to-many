@@ -10,11 +10,7 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-
-    protected $validation = [
-        'name' => 'required|unique:categories|max:100'
-    ];
-
+    
     /**
      * Display a listing of the resource.
      *

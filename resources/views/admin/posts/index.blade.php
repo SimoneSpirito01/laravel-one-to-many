@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Lista dei post</div>
+                <div class="card-header">Post list</div>
                 <div class="card-body">
                   <div class="new-post">
                     <button type="button" class="btn btn-success mb-3"><a class="text-white" href="{{route('posts.create')}}">New post</a></button>
@@ -34,6 +34,8 @@
                                     <td>
                                       @if ($post->category)
                                         {{$post->category->name}}
+                                      @else
+                                        None
                                       @endif
                                     </td>
                                     <td>

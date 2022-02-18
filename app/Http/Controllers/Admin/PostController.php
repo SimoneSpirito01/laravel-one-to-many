@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use Hamcrest\Type\IsString;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 class PostController extends Controller
@@ -15,7 +17,8 @@ class PostController extends Controller
         'title' => 'required|string|max:100',
         'content' => 'required',
         'published' => 'sometimes|accepted',
-        'category_id' => 'nullable|exists:categories,id'
+        'category_id' => 'nullable|exists:categories,id',
+        'image' => 'nullable|image|max:2048'
     ];
 
 
@@ -64,6 +67,11 @@ class PostController extends Controller
         while(Post::where('slug', $slug)->first()) {
             $slug = Str::of($newPost->title)->slug('-').'-'.$count;
             $count++;
+        }
+
+        if(isset($data['image'])) {
+            $path = Storage::put('uploads', $data['image']);
+            $newPost->image = $path;
         }
 
         $newPost->slug = $slug;
@@ -127,6 +135,12 @@ class PostController extends Controller
             
         }
 
+        if(isset($data['image'])) {
+            Storage::delete($post->image);
+            $path = Storage::put('uploads', $data['image']);
+            $post->image = $path;
+        }
+
         $post->content = $data['content'];
         $post->published = isset($data['published']);
         $post->category_id = $data['category_id'];
@@ -145,6 +159,11 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::where('slug', $id)->first();
+
+        if(isset($post->image)) {
+            Storage::delete($post->image);
+        }
+
         $post->delete();
 
         if(URL::previous() == 'http://127.0.0.1:8000/admin/posts/'.$id) {

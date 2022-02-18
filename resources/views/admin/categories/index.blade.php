@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">Lista dei post</div>
+                <div class="card-header">Category list</div>
                 <div class="card-body">
                   <div class="new-post">
                     <form class="d-flex mb-3" action="{{route('categories.store')}}" method="POST">
@@ -70,7 +70,7 @@
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  Are you sure you want to delete this post?
+                                  Are you sure you want to delete this category?
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-primary btnP" data-dismiss="modal">Close</button>
@@ -87,7 +87,7 @@
                           <div class="position-fixed bottom-0 right-0 p-3" style="z-index: 9999; right: 0; top: 60px;">
                             <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
                               <div class="toast-body">
-                                Post successfully deleted! 🗑
+                                Category successfully deleted! 🗑
                               </div>
                             </div>
                           </div> 

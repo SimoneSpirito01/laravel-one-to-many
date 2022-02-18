@@ -37272,20 +37272,30 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 $(document).ready(function () {
   $(".toastClicker").click(function () {
-    $('.toast').toast('show');
+    $(".toast").toast("show");
   });
 });
-var buttonsToggle = document.getElementsByClassName('btnToggle');
-var buttonDelete = document.querySelector('.my_button');
-var buttonDeleteCategory = document.querySelector('.delete-category');
-var posts = document.getElementsByClassName('my_item');
+
+window.previewUpload = function (event) {
+  if (event.target.files.length > 0) {
+    var src = URL.createObjectURL(event.target.files[0]);
+    var preview = document.querySelector(".my_image");
+    preview.src = src;
+    preview.style.display = "block";
+  }
+};
+
+var buttonsToggle = document.getElementsByClassName("btnToggle");
+var buttonDelete = document.querySelector(".my_button");
+var buttonDeleteCategory = document.querySelector(".delete-category");
+var posts = document.getElementsByClassName("my_item");
 var postSlug;
 var counter;
 
 if (buttonsToggle != null) {
   var _loop = function _loop(i) {
-    buttonsToggle[i].addEventListener('click', function () {
-      postSlug = this.getAttribute('data-slug');
+    buttonsToggle[i].addEventListener("click", function () {
+      postSlug = this.getAttribute("data-slug");
       counter = i;
     });
   };
@@ -37296,13 +37306,13 @@ if (buttonsToggle != null) {
 }
 
 if (buttonDelete != null) {
-  buttonDelete.addEventListener('click', function () {
+  buttonDelete.addEventListener("click", function () {
     console.log(postSlug);
     axios({
-      method: 'delete',
+      method: "delete",
       url: "posts/".concat(postSlug)
     }).then(function (response) {
-      posts[counter].classList.add('d-none');
+      posts[counter].classList.add("d-none");
     })["catch"](function (error) {
       console.log(error);
     });
@@ -37310,35 +37320,35 @@ if (buttonDelete != null) {
 }
 
 if (buttonDeleteCategory != null) {
-  buttonDeleteCategory.addEventListener('click', function () {
+  buttonDeleteCategory.addEventListener("click", function () {
     console.log(postSlug);
     axios({
-      method: 'delete',
+      method: "delete",
       url: "categories/".concat(postSlug)
     }).then(function (response) {
-      posts[counter].classList.add('d-none');
+      posts[counter].classList.add("d-none");
     })["catch"](function (error) {
       console.log(error);
     });
   });
 }
 
-var editToggle = document.getElementsByClassName('toggleForm');
-var submitForm = document.getElementsByClassName('submitForm');
-var categoryName = document.getElementsByClassName('name');
-var categoryNameEdit = document.getElementsByClassName('name-input');
-var editForm = document.getElementsByClassName('edit-form');
+var editToggle = document.getElementsByClassName("toggleForm");
+var submitForm = document.getElementsByClassName("submitForm");
+var categoryName = document.getElementsByClassName("name");
+var categoryNameEdit = document.getElementsByClassName("name-input");
+var editForm = document.getElementsByClassName("edit-form");
 
 if (editToggle != null && submitForm != null) {
   var _loop2 = function _loop2(_i) {
-    editToggle[_i].addEventListener('click', function () {
-      this.classList.add('d-none');
+    editToggle[_i].addEventListener("click", function () {
+      this.classList.add("d-none");
 
-      submitForm[_i].classList.remove('d-none');
+      submitForm[_i].classList.remove("d-none");
 
-      categoryName[_i].classList.add('d-none');
+      categoryName[_i].classList.add("d-none");
 
-      categoryNameEdit[_i].classList.remove('d-none');
+      categoryNameEdit[_i].classList.remove("d-none");
     });
   };
 
@@ -37347,16 +37357,16 @@ if (editToggle != null && submitForm != null) {
   }
 
   var _loop3 = function _loop3(_i2) {
-    submitForm[_i2].addEventListener('click', function () {
+    submitForm[_i2].addEventListener("click", function () {
       editForm[_i2].submit();
 
-      this.classList.add('d-none');
+      this.classList.add("d-none");
 
-      editToggle[_i2].classList.remove('d-none');
+      editToggle[_i2].classList.remove("d-none");
 
-      categoryName[_i2].classList.remove('d-none');
+      categoryName[_i2].classList.remove("d-none");
 
-      categoryNameEdit[_i2].classList.add('d-none');
+      categoryNameEdit[_i2].classList.add("d-none");
     });
   };
 
